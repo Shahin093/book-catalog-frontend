@@ -1,10 +1,14 @@
 import { Link } from "react-router-dom";
 import "./index.css";
 import Books from "./page/Books";
+import Cookies from "universal-cookie";
+
 function App() {
   const toggleButton = document.querySelector("[data-te-collapse-init]");
   const targetMenu = document.querySelector("#navbarSupportedContent1");
-
+  const cookies = new Cookies();
+  const userInfo = cookies.get("token");
+  console.log("userInfo", userInfo);
   // Add a click event listener to the toggle button
   toggleButton?.addEventListener("click", () => {
     // Toggle the 'hidden' class on the target menu to show/hide it
@@ -129,19 +133,34 @@ function App() {
                       href="#"
                       data-te-nav-link-ref
                     >
-                      SignIn
+                      Sign Up
                     </a>
                   </li>
                 </Link>
-                <li className="mb-4 lg:mb-0 lg:pr-2" data-te-nav-item-ref>
-                  <a
-                    className="text-neutral-500 transition duration-200 hover:text-neutral-700 hover:ease-in-out focus:text-neutral-700 disabled:text-black/30 motion-reduce:transition-none dark:text-neutral-200 dark:hover:text-neutral-300 dark:focus:text-neutral-300 lg:px-2 [&.active]:text-black/90 dark:[&.active]:text-neutral-400"
-                    href="#"
-                    data-te-nav-link-ref
-                  >
-                    SignUp
-                  </a>
-                </li>
+
+                {userInfo ? (
+                  <li className="mb-4 lg:mb-0 lg:pr-2" data-te-nav-item-ref>
+                    <a
+                      className="text-neutral-500 transition duration-200 hover:text-neutral-700 hover:ease-in-out focus:text-neutral-700 disabled:text-black/30 motion-reduce:transition-none dark:text-neutral-200 dark:hover:text-neutral-300 dark:focus:text-neutral-300 lg:px-2 [&.active]:text-black/90 dark:[&.active]:text-neutral-400"
+                      href="#"
+                      data-te-nav-link-ref
+                    >
+                      LogOut
+                    </a>
+                  </li>
+                ) : (
+                  <Link to={"/login"}>
+                    <li className="mb-4 lg:mb-0 lg:pr-2" data-te-nav-item-ref>
+                      <a
+                        className="text-neutral-500 transition duration-200 hover:text-neutral-700 hover:ease-in-out focus:text-neutral-700 disabled:text-black/30 motion-reduce:transition-none dark:text-neutral-200 dark:hover:text-neutral-300 dark:focus:text-neutral-300 lg:px-2 [&.active]:text-black/90 dark:[&.active]:text-neutral-400"
+                        href="#"
+                        data-te-nav-link-ref
+                      >
+                        Sign In
+                      </a>
+                    </li>
+                  </Link>
+                )}
               </ul>
             </div>
 

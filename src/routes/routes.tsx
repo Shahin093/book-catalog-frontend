@@ -6,6 +6,8 @@ import AllBooks from "../page/AllBooks";
 import AddNewBook from "../page/AddNewBook";
 import BookDetails from "../page/bookDetails";
 import SingUp from "../page/singUp";
+import Login from "../page/login";
+import Logout from "../page/logout";
 
 const routes = createBrowserRouter([
   {
@@ -47,6 +49,14 @@ const routes = createBrowserRouter([
   {
     path: "/signup",
     element: <SingUp />,
+  },
+  {
+    path: "/login",
+    element: <Login />,
+  },
+  {
+    path: "/logout",
+    element: <Logout />,
   },
   {
     path: "*",

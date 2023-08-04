@@ -1,12 +1,13 @@
 import { useForm } from "react-hook-form";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useSignUpMutation } from "../redux/features/users/usersApi";
+import Cookies from "universal-cookie";
 
 const SingUp = () => {
   const { register, handleSubmit } = useForm();
-
+  const cookies = new Cookies();
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  //   const navigate = useNavigate();
+  const navigate = useNavigate();
 
   // useEffect(() => {
   //   if (props.navigate) {
@@ -24,9 +25,14 @@ const SingUp = () => {
   const onSubmitHandler = (data: any) => {
     console.log(data);
     signUp(data);
+    navigate("/");
     // props.login(data);
   };
-  console.log(data, isError, isLoading, isSuccess);
+
+  if (data) {
+    cookies.set("token", data?.data?.accessToken, { path: "/" });
+  }
+  console.log(data?.data?.accessToken, isError, isLoading, isSuccess);
 
   return (
     <div>
