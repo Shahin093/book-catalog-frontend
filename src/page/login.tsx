@@ -18,12 +18,13 @@ const Login = () => {
     console.log(data);
     login(data);
     // if (data) {
-    //   navigate("/");
+    //
     // }
     // props.login(data);
   };
   if (data) {
     cookies.set("token", data?.data?.accessToken, { path: "/" });
+    navigate("/");
   }
   console.log(data?.data?.accessToken, isError, isLoading, isSuccess);
 
