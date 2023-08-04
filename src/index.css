@@ -1,0 +1,7 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+#menu-toggle:not(:focus) ~ [data-te-navbar-nav-ref] {
+  display: none;
+}
