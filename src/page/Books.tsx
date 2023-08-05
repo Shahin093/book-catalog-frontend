@@ -1,148 +1,97 @@
+import { useState } from "react";
+import { Link } from "react-router-dom";
+import { useGetBooksQuery } from "../redux/features/books/booksApi";
+import { IBook } from "../types/globalTypes";
+import Loading from "../components/shared/loading";
+
 const Books = () => {
-  return (
-    <div className="grid grid-cols-1 lg:grid-cols-3 gap-5 p-6">
-      <div className="overflow-hidden shadow-lg transition duration-500 ease-in-out transform hover:-translate-y-5 hover:shadow-2xl rounded-lg   cursor-pointer m-auto">
-        <a href="#" className="w-full block h-full">
-          <img
-            alt="blog photo"
-            src="https://m.media-amazon.com/images/I/41iAE8B2KIL._SY291_BO1,204,203,200_QL40_FMwebp_.jpg"
-            className="max-h-40 w-full object-cover"
-          />
-          <div className="bg-white w-full p-4">
-            <p className="text-indigo-500 text-2xl font-medium">
-              Should You Get Online Education?
-            </p>
-            <p className="text-gray-800 text-sm font-medium mb-2">
-              A comprehensive guide about online education.
-            </p>
-            <p className="text-gray-600 font-light text-md">
-              It is difficult to believe that we have become so used to having
-              instant access to information at...
-              <a className="inline-flex text-indigo-500" href="#">
-                Read More
-              </a>
-            </p>
-            <div className="flex flex-wrap justify-starts items-center py-3 border-b-2 text-xs text-white font-medium">
-              <span className="m-1 px-2 py-1 rounded bg-indigo-500">
-                #online
-              </span>
-              <span className="m-1 px-2 py-1 rounded bg-indigo-500">
-                #internet
-              </span>
-              <span className="m-1 px-2 py-1 rounded bg-indigo-500">
-                #education
-              </span>
-            </div>
-            <div className="flex items-center mt-2">
-              <img
-                className="w-10 h-10 object-cover rounded-full"
-                alt="User avatar"
-                src="https://images.unsplash.com/photo-1477118476589-bff2c5c4cfbb?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=200&q=200"
-              />
+  const [currentPage, setCurrentPage] = useState(1);
+  const totalPages = 3; // Replace this with the actual total number of pages
 
-              <div className="pl-3">
-                <div className="font-medium">Jean Marc</div>
-                <div className="text-gray-600 text-sm">CTO of Supercars</div>
+  const handlePageChange = (pageNumber: number) => {
+    setCurrentPage(pageNumber);
+
+    // Add logic to fetch and display the data for the selected page
+  };
+
+  const { data, isLoading } = useGetBooksQuery({
+    undefined,
+    page: currentPage,
+  });
+  console.log("cu page : ", currentPage);
+  console.log(isLoading);
+  return isLoading ? (
+    <div>
+      <Loading></Loading>
+    </div>
+  ) : (
+    <div>
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-5 p-6">
+        {data?.data.map((book: IBook) => (
+          <Link to={`/book/${book?._id}`}>
+            <div>
+              <div className=" gap-5 p-10 m-6 rotate-6 space-y-6 rounded-2xl bg-gray-100  transition http://127.0.0.1:3000/book/64cc83acd80bb0ea69eac8a8duration-300 hover:rotate-0">
+                <div className="flex justify-end gap-2">
+                  <h2 className="-mt-1 font-bold">* BOOK</h2>
+                  <div className="h-4 w-4 rounded-full bg-[#FE5401]"></div>
+                </div>
+
+                <header className="text-center text-xl font-extrabold text-gray-600">
+                  {book?.publication_date}
+                </header>
+
+                <div>
+                  <p className="text-center text-5xl font-extrabold text-gray-900">
+                    {book?.title}
+                  </p>
+                  <p className="text-center text-4xl font-extrabold text-[#FE5401]">
+                    {book?.author}
+                  </p>
+                </div>
+
+                <footer className="mb-10 flex justify-center">
+                  <button className="flex items-baseline gap-2 rounded-lg bg-[#FE5401] px-4 py-2.5 text-xl font-bold text-white hover:bg-[#FF7308]">
+                    <span>Start</span>
+                    <i className="fas fa-hand-peace text-xl"></i>
+                  </button>
+                </footer>
               </div>
             </div>
-          </div>
-        </a>
+          </Link>
+        ))}
       </div>
+      <div className="bg-white p-4 flex justify-end flex-wrap">
+        <nav aria-label="Page navigation">
+          <ul className="inline-flex">
+            <li>
+              <button
+                className={`px-4 py-2 text-green-600 transition-colors duration-150 bg-white border border-r-0 border-green-600 ${
+                  currentPage === 1
+                    ? "rounded-l-lg"
+                    : "focus:shadow-outline hover:bg-green-100"
+                }`}
+                onClick={() => handlePageChange(currentPage - 1)}
+                disabled={currentPage === 1}
+              >
+                Prev
+              </button>
+            </li>
 
-      <div className="overflow-hidden shadow-lg transition duration-500 ease-in-out transform hover:-translate-y-5 hover:shadow-2xl rounded-lg  cursor-pointer m-auto">
-        <a href="#" className="w-full block h-full">
-          {/* <img
-            alt="blog photo"
-            src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQp8ihZd2a4CzLBlDFi1Cs_-Y12BVGfMgfI3q5h0gsS&s"
-            className="max-h-40 w-full object-cover"
-          /> */}
-          <div className="bg-white w-full p-4">
-            <p className="text-indigo-500 text-2xl font-medium">
-              Should You Get Online Education?
-            </p>
-            <p className="text-gray-800 text-sm font-medium mb-2">
-              A comprehensive guide about online education.
-            </p>
-            <p className="text-gray-600 font-light text-md">
-              It is difficult to believe that we have become so used to having
-              instant access to information at...
-              <a className="inline-flex text-indigo-500" href="#">
-                Read More
-              </a>
-            </p>
-            <div className="flex flex-wrap justify-starts items-center py-3 border-b-2 text-xs text-white font-medium">
-              <span className="m-1 px-2 py-1 rounded bg-indigo-500">
-                #online
-              </span>
-              <span className="m-1 px-2 py-1 rounded bg-indigo-500">
-                #internet
-              </span>
-              <span className="m-1 px-2 py-1 rounded bg-indigo-500">
-                #education
-              </span>
-            </div>
-            <div className="flex items-center mt-2">
-              <img
-                className="w-10 h-10 object-cover rounded-full"
-                alt="User avatar"
-                src="https://images.unsplash.com/photo-1477118476589-bff2c5c4cfbb?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=200&q=200"
-              />
-
-              <div className="pl-3">
-                <div className="font-medium">Jean Marc</div>
-                <div className="text-gray-600 text-sm">CTO of Supercars</div>
-              </div>
-            </div>
-          </div>
-        </a>
-      </div>
-
-      <div className="overflow-hidden shadow-lg transition duration-500 ease-in-out transform hover:-translate-y-5 hover:shadow-2xl rounded-lg  cursor-pointer m-auto">
-        <a href="#" className="w-full block h-full">
-          <img
-            alt="blog photo"
-            src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR7EZkLWt6HU1WLkGi231s4aNTYS_KsJu-KApQ_-BcL1g&s"
-            className="max-h-52 w-full fluid  object-cover"
-          />
-          <div className="bg-white w-full p-4">
-            <p className="text-indigo-500 text-2xl font-medium">
-              Should You Get Online Education?
-            </p>
-            <p className="text-gray-800 text-sm font-medium mb-2">
-              A comprehensive guide about online education.
-            </p>
-            <p className="text-gray-600 font-light text-md">
-              It is difficult to believe that we have become so used to having
-              instant access to information at...
-              <a className="inline-flex text-indigo-500" href="#">
-                Read More
-              </a>
-            </p>
-            <div className="flex flex-wrap justify-starts items-center py-3 border-b-2 text-xs text-white font-medium">
-              <span className="m-1 px-2 py-1 rounded bg-indigo-500">
-                #online
-              </span>
-              <span className="m-1 px-2 py-1 rounded bg-indigo-500">
-                #internet
-              </span>
-              <span className="m-1 px-2 py-1 rounded bg-indigo-500">
-                #education
-              </span>
-            </div>
-            <div className="flex items-center mt-2">
-              <img
-                className="w-10 h-10 object-cover rounded-full"
-                alt="User avatar"
-                src="https://images.unsplash.com/photo-1477118476589-bff2c5c4cfbb?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=200&q=200"
-              />
-
-              <div className="pl-3">
-                <div className="font-medium">Jean Marc</div>
-                <div className="text-gray-600 text-sm">CTO of Supercars</div>
-              </div>
-            </div>
-          </div>
-        </a>
+            <li>
+              <button
+                className={`px-4 py-2 text-green-600 transition-colors duration-150 bg-white border border-green-600 ${
+                  currentPage === totalPages
+                    ? "rounded-r-lg"
+                    : "focus:shadow-outline hover:bg-green-100"
+                }`}
+                onClick={() => handlePageChange(currentPage + 1)}
+                disabled={currentPage === totalPages}
+              >
+                Next
+              </button>
+            </li>
+          </ul>
+        </nav>
       </div>
     </div>
   );

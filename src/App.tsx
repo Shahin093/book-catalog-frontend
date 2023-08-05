@@ -245,7 +245,9 @@ function App() {
 
           <div className="flex justify-center items-center h-full mt-16">
             <div className="text-center">
-              <h2 className="text-3xl mb-2">Welcome to Book Publishing</h2>
+              <h2 className="text-3xl mb-2 font-bold">
+                Welcome to Book Publishing
+              </h2>
               <p className="lg:w-[900px]">
                 The 501(c)(3) nonprofit Institute for Education, Research, and
                 Scholarships (IFERS) conducts scientific and social research as
@@ -258,7 +260,9 @@ function App() {
         </div>
 
         {/* books card  */}
-        <h2 className="text-3xl">Books</h2>
+        <h2 className="text-3xl flex justify-center items-center font-bold mt-4">
+          Books
+        </h2>
         <Books></Books>
 
         {/* footer  */}

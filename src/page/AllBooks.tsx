@@ -3,6 +3,7 @@ import { useGetBooksQuery } from "../redux/features/books/booksApi";
 import { IBook } from "../types/globalTypes";
 import { Link } from "react-router-dom";
 import MainLayout from "../components/layout/MainLayout";
+import Loading from "../components/shared/loading";
 
 const AllBooks = () => {
   const [searchData, setSearchData] = useState("");
@@ -30,7 +31,9 @@ const AllBooks = () => {
   });
   console.log(data?.data);
   return isLoading ? (
-    <div>IS LOADING</div>
+    <div>
+      <Loading></Loading>
+    </div>
   ) : (
     <div>
       <MainLayout>
@@ -119,7 +122,7 @@ const AllBooks = () => {
           ))}
         </div>
 
-        <div className="bg-white p-4 flex items-center flex-wrap">
+        <div className="bg-white p-4 flex justify-end flex-wrap">
           <nav aria-label="Page navigation">
             <ul className="inline-flex">
               <li>
@@ -135,7 +138,7 @@ const AllBooks = () => {
                   Prev
                 </button>
               </li>
-              {[...Array(totalPages).keys()].map((pageNumber) => (
+              {/* {[...Array(totalPages).keys()].map((pageNumber) => (
                 <li key={pageNumber}>
                   <button
                     className={`px-4 py-2 ${
@@ -148,7 +151,7 @@ const AllBooks = () => {
                     {pageNumber + 1}
                   </button>
                 </li>
-              ))}
+              ))} */}
               <li>
                 <button
                   className={`px-4 py-2 text-green-600 transition-colors duration-150 bg-white border border-green-600 ${

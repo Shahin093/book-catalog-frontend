@@ -1,7 +1,13 @@
 import MainLayout from "../components/layout/MainLayout";
+import { decodeToken } from "../lib/utils";
 import { usePostBookMutation } from "../redux/features/books/booksApi";
 import { ChangeEvent, useState } from "react";
+import { IDecodedToken } from "../types/globalTypes";
 const AddNewBook = () => {
+  // Decoding the JWT token
+  const user = decodeToken() as IDecodedToken | null;
+  console.log("user", user?.userId);
+
   const [formData, setFormData] = useState({
     title: "",
     author: "",
@@ -9,6 +15,7 @@ const AddNewBook = () => {
     description: "",
     publication_date: "",
     review: "",
+    user: user?.userId,
   });
 
   const handleInputChange = (event: ChangeEvent<HTMLInputElement>) => {
