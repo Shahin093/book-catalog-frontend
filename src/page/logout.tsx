@@ -1,10 +1,13 @@
 import React from "react";
+import MainLayout from "../components/layout/MainLayout";
 
 const Logout = () => {
   return (
-    <div>
-      <h2>This is Logout Page</h2>
-    </div>
+    <MainLayout>
+      <div>
+        <h2>This is Logout Page</h2>
+      </div>
+    </MainLayout>
   );
 };
 
