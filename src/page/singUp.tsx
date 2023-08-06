@@ -3,6 +3,9 @@ import { Link, useNavigate } from "react-router-dom";
 import { useSignUpMutation } from "../redux/features/users/usersApi";
 import Cookies from "universal-cookie";
 import MainLayout from "../components/layout/MainLayout";
+import { toast, ToastContainer } from "react-toastify";
+
+import "react-toastify/dist/ReactToastify.css";
 
 const SingUp = () => {
   const { register, handleSubmit } = useForm();
@@ -26,6 +29,7 @@ const SingUp = () => {
   const onSubmitHandler = (data: any) => {
     console.log(data);
     signUp(data);
+    toast(data?.message);
     navigate("/");
     // props.login(data);
   };
@@ -38,6 +42,9 @@ const SingUp = () => {
   return (
     <MainLayout>
       <div>
+        <h2 className="flex mx-auto justify-center items-center mt-5 text-3xl font-bold text-green-400">
+          Registration User
+        </h2>
         <div className="mt-5">
           <form onSubmit={handleSubmit(onSubmitHandler)}>
             <div className="grid  md:grid-cols-1">
@@ -46,7 +53,7 @@ const SingUp = () => {
                   type="text"
                   placeholder="Email"
                   {...register("email")}
-                  className="mt-5 px-10 py-3 w-[40vw] border text-lg text-black rounded-md shadow-sm border-dark focus:border-primary outline-none leading-8 transition-colors duration-200 ease-in-out"
+                  className="mt-5 px-10 py-3 sm:w-full lg:w-[40vw] border text-lg text-black rounded-md shadow-sm border-dark focus:border-primary outline-none leading-8 transition-colors duration-200 ease-in-out"
                 />
               </div>
               <div className="mx-auto">
@@ -54,7 +61,7 @@ const SingUp = () => {
                   type="Password"
                   placeholder="Password"
                   {...register("password")}
-                  className="mt-5 px-10 py-3 w-[40vw] border text-lg text-black rounded-md shadow-sm border-dark focus:border-primary outline-none leading-8 transition-colors duration-200 ease-in-out"
+                  className="mt-5 px-10 py-3 sm:w-full lg:w-[40vw] border text-lg text-black rounded-md shadow-sm border-dark focus:border-primary outline-none leading-8 transition-colors duration-200 ease-in-out"
                 />
               </div>
               <div className="mx-auto">
@@ -78,6 +85,7 @@ const SingUp = () => {
           </form>
         </div>
       </div>
+      <ToastContainer />
     </MainLayout>
   );
 };

@@ -5,3 +5,27 @@
 #menu-toggle:not(:focus) ~ [data-te-navbar-nav-ref] {
   display: none;
 }
+
+/* Animation for showing the toast */
+.Toastify__toast--enter {
+  opacity: 0.8;
+  transform: translateY(-100%);
+}
+
+.Toastify__toast--enter-active {
+  opacity: 1;
+  transform: translateY(0);
+  transition: opacity 300ms, transform 300ms;
+}
+
+/* Animation for hiding the toast */
+.Toastify__toast--exit {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.Toastify__toast--exit-active {
+  opacity: 0.8;
+  transform: translateY(-100%);
+  transition: opacity 300ms, transform 300ms;
+}

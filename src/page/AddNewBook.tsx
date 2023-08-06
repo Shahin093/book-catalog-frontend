@@ -3,10 +3,15 @@ import { decodeToken } from "../lib/utils";
 import { usePostBookMutation } from "../redux/features/books/booksApi";
 import { ChangeEvent, useState } from "react";
 import { IDecodedToken } from "../types/globalTypes";
+import { toast, ToastContainer } from "react-toastify";
+
+import "react-toastify/dist/ReactToastify.css";
+import { useNavigate } from "react-router-dom";
 const AddNewBook = () => {
   // Decoding the JWT token
   const user = decodeToken() as IDecodedToken | null;
   console.log("user", user?.userId);
+  const navigate = useNavigate();
 
   const [formData, setFormData] = useState({
     title: "",
@@ -25,6 +30,11 @@ const AddNewBook = () => {
 
   const [postBook, { data, isError, isLoading, isSuccess }] =
     usePostBookMutation();
+
+  if (data) {
+    toast(data?.message);
+  }
+
   const handleSubmit = (event: ChangeEvent<HTMLFormElement>) => {
     event.preventDefault();
     // Here, you can use the formData object to perform actions like sending data to a server.
@@ -33,7 +43,11 @@ const AddNewBook = () => {
     const data = formData;
     postBook(data);
   };
-  console.log(data);
+
+  if (data) {
+    navigate(`/book/${data?.data?._id}`);
+  }
+  console.log("data", data?.message);
   console.log(isLoading);
   console.log(isError);
   console.log(isSuccess);
@@ -224,6 +238,7 @@ const AddNewBook = () => {
           </div>
         </div>
       </div>
+      <ToastContainer />
     </MainLayout>
   );
 };

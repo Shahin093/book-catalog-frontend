@@ -1,13 +1,19 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Cookies from "universal-cookie";
 
 const Nav = () => {
   const cookies = new Cookies();
+  const navigate = useNavigate();
   const userInfo = cookies.get("token");
   const [isMobileMenuOpen, setMobileMenuOpen] = useState(false);
   const handleMobileMenuToggle = () => {
     setMobileMenuOpen(!isMobileMenuOpen);
+  };
+
+  const logout = () => {
+    cookies.remove("token", { path: "/" });
+    navigate("/login");
   };
 
   return (
@@ -85,15 +91,16 @@ const Nav = () => {
             </Link>
 
             {userInfo ? (
-              <li className="mb-4 lg:mb-0 lg:pr-2" data-te-nav-item-ref>
-                <a
-                  className="text-neutral-500 transition duration-200 hover:text-neutral-700 hover:ease-in-out focus:text-neutral-700 disabled:text-black/30 motion-reduce:transition-none dark:text-neutral-200 dark:hover:text-neutral-300 dark:focus:text-neutral-300 lg:px-2 [&.active]:text-black/90 dark:[&.active]:text-neutral-400"
-                  href="#"
-                  data-te-nav-link-ref
-                >
-                  LogOut
-                </a>
-              </li>
+              <button
+                className="p-4 border-b-2 border-green-500 border-opacity-0 hover:border-opacity-100 hover:text-green-500 duration-200 cursor-pointer active"
+                onClick={() => logout()}
+              >
+                <li>
+                  <a className="text-neutral-500 transition duration-200 hover:text-neutral-700 hover:ease-in-out focus:text-neutral-700 disabled:text-black/30 motion-reduce:transition-none dark:text-neutral-200 dark:hover:text-neutral-300 dark:focus:text-neutral-300 lg:px-2 [&.active]:text-black/90 dark:[&.active]:text-neutral-400">
+                    LogOut
+                  </a>
+                </li>
+              </button>
             ) : (
               <Link
                 to={"/login"}
@@ -182,18 +189,19 @@ const Nav = () => {
               </Link>
 
               {userInfo ? (
-                <li
+                <button
                   className="p-4 border-b-2 border-green-500 border-opacity-0 hover:border-opacity-100 hover:text-green-500 duration-200 cursor-pointer active"
-                  data-te-nav-item-ref
+                  onClick={() => logout()}
                 >
-                  <a
-                    className="text-neutral-500 transition duration-200 hover:text-neutral-700 hover:ease-in-out focus:text-neutral-700 disabled:text-black/30 motion-reduce:transition-none dark:text-neutral-200 dark:hover:text-neutral-300 dark:focus:text-neutral-300 lg:px-2 [&.active]:text-black/90 dark:[&.active]:text-neutral-400"
-                    href="#"
-                    data-te-nav-link-ref
+                  <li
+                    className="p-4 border-b-2 border-green-500 border-opacity-0 hover:border-opacity-100 hover:text-green-500 duration-200 cursor-pointer active"
+                    data-te-nav-item-ref
                   >
-                    LogOut
-                  </a>
-                </li>
+                    <a className="text-neutral-500 transition duration-200 hover:text-neutral-700 hover:ease-in-out focus:text-neutral-700 disabled:text-black/30 motion-reduce:transition-none dark:text-neutral-200 dark:hover:text-neutral-300 dark:focus:text-neutral-300 lg:px-2 [&.active]:text-black/90 dark:[&.active]:text-neutral-400">
+                      LogOut
+                    </a>
+                  </li>
+                </button>
               ) : (
                 <Link
                   to={"/login"}

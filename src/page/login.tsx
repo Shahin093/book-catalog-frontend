@@ -3,6 +3,10 @@ import { useForm } from "react-hook-form";
 import Cookies from "universal-cookie";
 import { useLoginMutation } from "../redux/features/users/usersApi";
 import MainLayout from "../components/layout/MainLayout";
+import Loading from "../components/shared/loading";
+import { toast, ToastContainer } from "react-toastify";
+
+import "react-toastify/dist/ReactToastify.css";
 
 const Login = () => {
   const { register, handleSubmit } = useForm();
@@ -23,16 +27,24 @@ const Login = () => {
     // }
     // props.login(data);
   };
+
   if (data) {
     cookies.set("token", data?.data?.accessToken, { path: "/" });
+    toast(data?.message);
     navigate("/");
   }
   console.log(data?.data?.accessToken, isError, isLoading, isSuccess);
 
-  return (
+  return isLoading ? (
+    <div>
+      <Loading></Loading>
+    </div>
+  ) : (
     <MainLayout>
       <div>
-        <h2>Login Page</h2>
+        <h2 className="flex mx-auto justify-center items-center mt-5 text-3xl font-bold text-green-400">
+          Login User
+        </h2>
         <div className="mt-5">
           <form onSubmit={handleSubmit(onSubmitHandler)}>
             <div className="grid  md:grid-cols-1">
@@ -41,7 +53,7 @@ const Login = () => {
                   type="text"
                   placeholder="Email"
                   {...register("email")}
-                  className="mt-5 px-10 py-3 w-[40vw] border text-lg text-black rounded-md shadow-sm border-dark focus:border-primary outline-none leading-8 transition-colors duration-200 ease-in-out"
+                  className="mt-5 px-10 py-3 sm:w-full lg:w-[40vw] border text-lg text-black rounded-md shadow-sm border-dark focus:border-primary outline-none leading-8 transition-colors duration-200 ease-in-out"
                 />
               </div>
               <div className="mx-auto">
@@ -49,13 +61,13 @@ const Login = () => {
                   type="Password"
                   placeholder="Password"
                   {...register("password")}
-                  className="mt-5 px-10 py-3 w-[40vw] border text-lg text-black rounded-md shadow-sm border-dark focus:border-primary outline-none leading-8 transition-colors duration-200 ease-in-out"
+                  className="mt-5 px-10 py-3 sm:w-full lg:w-[40vw] border text-lg text-black rounded-md shadow-sm border-dark focus:border-primary outline-none leading-8 transition-colors duration-200 ease-in-out"
                 />
               </div>
               <div className="mx-auto">
                 <button
                   type="submit"
-                  className="bg-primary w-[40vw] mx-auto  bg-green-500 text-white font-bold font-medium py-4 px-5  mt-5 rounded-md"
+                  className="bg-primary sm:w-full lg:w-[40vw] mx-auto  bg-green-500 text-white font-bold font-medium py-4 px-5  mt-5 rounded-md"
                 >
                   Login
                 </button>
@@ -65,7 +77,7 @@ const Login = () => {
                 <h3 className="mx-auto mt-10 font-bold">
                   You Don't Have a Account?{" "}
                   <span style={{ color: "#04d98c" }}>
-                    <Link to="/registration">Register</Link>
+                    <Link to="/signup">Register</Link>
                   </span>
                 </h3>
               </div>
@@ -73,6 +85,7 @@ const Login = () => {
           </form>
         </div>
       </div>
+      <ToastContainer />
     </MainLayout>
   );
 };

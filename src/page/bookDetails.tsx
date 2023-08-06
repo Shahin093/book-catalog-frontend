@@ -6,6 +6,9 @@ import { decodeToken } from "../lib/utils";
 import { IDecodedToken } from "../types/globalTypes";
 import { ChangeEvent, useState } from "react";
 import UpdateBookModal from "../components/shared/updateBookModal";
+import { toast, ToastContainer } from "react-toastify";
+
+import "react-toastify/dist/ReactToastify.css";
 
 const BookDetails = () => {
   const { id } = useParams();
@@ -51,6 +54,9 @@ const BookDetails = () => {
     // postBook(data);
   };
 
+  if (data) {
+    toast(data.message);
+  }
   return isLoading ? (
     <div>
       <Loading></Loading>
@@ -199,7 +205,7 @@ const BookDetails = () => {
         <div className="flex justify-center py-10 items-center bg-white">
           <form onSubmit={handleSubmit} className="bg-white w-full max-w-sm">
             <h1 className="text-gray-800 font-bold text-2xl mb-1">
-              Create a Book
+              Update a Book
             </h1>
             <p className="text-sm font-normal text-gray-600 mb-7">
               Welcome Back
@@ -350,11 +356,12 @@ const BookDetails = () => {
               type="submit"
               className="block w-full bg-indigo-600 mt-4 py-2 rounded-2xl text-white font-semibold mb-2"
             >
-              Add Book
+              Update Book
             </button>
           </form>
         </div>
       </UpdateBookModal>
+      <ToastContainer></ToastContainer>
     </MainLayout>
   );
 };

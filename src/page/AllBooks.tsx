@@ -4,6 +4,12 @@ import { IBook } from "../types/globalTypes";
 import { Link } from "react-router-dom";
 import MainLayout from "../components/layout/MainLayout";
 import Loading from "../components/shared/loading";
+import { ToastContainer, toast } from "react-toastify";
+
+import "react-toastify/dist/ReactToastify.css";
+
+// import { RootState } from "../redux/store";
+// import { showToast } from "../redux/features/toasts/toastsSlice";
 
 const AllBooks = () => {
   const [searchData, setSearchData] = useState("");
@@ -29,7 +35,18 @@ const AllBooks = () => {
     searchData,
     page: currentPage,
   });
-  console.log(data?.data);
+
+  // const dispatch = useAppDispatch();
+  // const toastState = useAppSelector((state: RootState) => state.toasts);
+
+  if (data?.data) {
+    toast("All Books founded");
+  }
+
+  // const showToast = (message: string, type: ToastType) => {
+
+  // };
+
   return isLoading ? (
     <div>
       <Loading></Loading>
@@ -168,6 +185,8 @@ const AllBooks = () => {
             </ul>
           </nav>
         </div>
+
+        <ToastContainer />
       </MainLayout>
     </div>
   );
