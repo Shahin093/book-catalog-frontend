@@ -57,21 +57,7 @@ const UpdateBookModal: React.FC<ModalProps> = ({ id, isOpen, onClose }) => {
           navigate(`/book/${data?.data._id}`);
         }, 2000)
       );
-
-      // setTimeout(() => {
-      //   navigate("/all-books");
-      // }, 2000);
     }
-
-    // if (data) {
-    //   const timeoutId = setTimeout(() => {
-    //     navigate(`/book/${data?.data._id}`);
-    //   }, 2000); // Delay navigation for 2 seconds (adjust as needed)
-
-    //   return () => {
-    //     clearTimeout(timeoutId); // Clear the timeout if the component unmounts before the timeout fires
-    //   };
-    // }
   }, []);
 
   if (!isOpen) return null;

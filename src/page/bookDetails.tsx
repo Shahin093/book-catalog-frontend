@@ -10,18 +10,27 @@ import { ToastContainer } from "react-toastify";
 
 import "react-toastify/dist/ReactToastify.css";
 import UpdateBookModal from "../components/shared/updateBookModal";
+import DeleteBookModal from "../components/shared/deleteBookModal";
 
 const BookDetails = () => {
   const { id } = useParams();
 
   const [isModalOpen, setModalOpen] = useState(false);
 
+  const [isModalOpen2, setModalOpen2] = useState(false);
+
   const handleOpenModal = () => {
     setModalOpen(true);
+  };
+  const handleOpenModal2 = () => {
+    setModalOpen2(true);
   };
 
   const handleCloseModal = () => {
     setModalOpen(false);
+  };
+  const handleCloseModal2 = () => {
+    setModalOpen2(false);
   };
 
   // Decoding the JWT token
@@ -31,36 +40,6 @@ const BookDetails = () => {
   const { data, isLoading, error } = useSingleBookQuery(id);
   console.log(data, isLoading, error);
 
-  // const [formData, setFormData] = useState({
-  //   title: "",
-  //   author: "",
-  //   genre: "",
-  //   description: "",
-  //   publication_date: "",
-  //   review: "",
-  //   user: user?.userId,
-  // });
-
-  // const handleInputChange = (event: ChangeEvent<HTMLInputElement>) => {
-  //   const { name, value } = event.target;
-  //   setFormData({ ...formData, [name]: value });
-  // };
-
-  // if (data) {
-  //   toast(data.message);
-  // }
-
-  // const [updateBook, { isError }] = useUpdateBookMutation();
-  // const handleSubmit = (event: ChangeEvent<HTMLFormElement>) => {
-  //   event.preventDefault();
-  //   // Here, you can use the formData object to perform actions like sending data to a server.
-  //   // For this example, we'll just log the formData object.
-  //   console.log(formData);
-  //   // const data = formData;
-  //   updateBook(formData);
-  // };
-  // console.log(isError);
-  // console.log(updatedData);
   return isLoading ? (
     <div>
       <Loading></Loading>
@@ -173,12 +152,11 @@ const BookDetails = () => {
                         </div>
                       </div>
                       <div className="mt-6">
-                        <div className="rounded-md shadow">
-                          <a
-                            href="https://stackdiary.com/"
-                            className="flex items-center justify-center w-full px-5 py-3 text-base font-medium text-white bg-gray-800 border border-transparent rounded-md hover:bg-gray-900"
-                            target="_blank"
-                          >
+                        <div
+                          className="rounded-md shadow"
+                          onClick={handleOpenModal2}
+                        >
+                          <a className="flex items-center justify-center w-full px-5 py-3 text-base font-medium text-white bg-gray-800 border border-transparent rounded-md hover:bg-gray-900">
                             DELETE BOOK
                           </a>
                         </div>
@@ -209,6 +187,12 @@ const BookDetails = () => {
         id={data?.data._id}
         isOpen={isModalOpen}
         onClose={handleCloseModal}
+      />
+      {/* delete modal  */}
+      <DeleteBookModal
+        id={data?.data._id}
+        isOpen={isModalOpen2}
+        onClose={handleCloseModal2}
       />
 
       <ToastContainer></ToastContainer>
