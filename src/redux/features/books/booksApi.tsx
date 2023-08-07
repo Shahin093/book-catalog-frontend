@@ -21,7 +21,7 @@ const BookApi = api.injectEndpoints({
 
     updateBook: builder.mutation({
       query: ({ id, ...data }) => ({
-        url: `/comment/${id}`,
+        url: `/book/${id}`,
         method: "PATCH",
         body: data,
       }),

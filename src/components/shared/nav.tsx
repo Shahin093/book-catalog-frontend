@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import Cookies from "universal-cookie";
+// import UpdateBookModal from "./updateBookModal";
 
 const Nav = () => {
   const cookies = new Cookies();
@@ -16,10 +17,44 @@ const Nav = () => {
     navigate("/login");
   };
 
+  // const [isModalOpen, setModalOpen] = useState(false);
+
+  const handleOpenModal = () => {
+    // navigate("/login");
+    // setModalOpen(true);
+  };
+
+  // const handleCloseModal = () => {
+  //   setModalOpen(false);
+  // };
+
   return (
     <div>
+      {/* <UpdateBookModal isOpen={isModalOpen} onClose={handleCloseModal}>
+        
+        
+          <div className=" justify-center py-10 items-center bg-white">
+            <h1 className="text-gray-800 font-bold text-2xl mb-1">
+              You want to Logout!...
+            </h1>
+            <div className="mt-6 mx-3">
+              <button
+                onClick={logout}
+                className="bg-blue-500 mr-5 hover:bg-blue-400 text-white font-bold py-2 px-4 border-b-4 border-blue-700 hover:border-blue-500 rounded"
+              >
+                Delete
+              </button>
+              <button
+                onClick={handleCloseModal}
+                className="bg-blue-500 hover:bg-blue-400 text-white font-bold py-2 px-4 border-b-4 border-blue-700 hover:border-blue-500 rounded"
+              >
+                Cancel
+              </button>
+            </div>
+          </div>
+        </UpdateBookModal> */}
+
       <header className="sticky top-0 bg-white shadow-md flex items-center justify-between px-8 py-2">
-        {/* logo */}
         <h1
           className={`w-3/12 ${
             isMobileMenuOpen && "hidden"
@@ -93,7 +128,7 @@ const Nav = () => {
             {userInfo ? (
               <button
                 className="p-4 border-b-2 border-green-500 border-opacity-0 hover:border-opacity-100 hover:text-green-500 duration-200 cursor-pointer active"
-                onClick={() => logout()}
+                onClick={handleOpenModal}
               >
                 <li>
                   <a className="text-neutral-500 transition duration-200 hover:text-neutral-700 hover:ease-in-out focus:text-neutral-700 disabled:text-black/30 motion-reduce:transition-none dark:text-neutral-200 dark:hover:text-neutral-300 dark:focus:text-neutral-300 lg:px-2 [&.active]:text-black/90 dark:[&.active]:text-neutral-400">

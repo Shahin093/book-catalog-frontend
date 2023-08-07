@@ -30,7 +30,7 @@ const Books = () => {
         {data?.data.map((book: IBook) => (
           <Link to={`/book/${book?._id}`}>
             <div>
-              <div className=" gap-5 p-10 m-6 rotate-6 space-y-6 rounded-2xl bg-gray-100  transition http://127.0.0.1:3000/book/64cc83acd80bb0ea69eac8a8duration-300 hover:rotate-0">
+              <div className=" gap-5 p-10 m-6  space-y-6 rounded-2xl bg-gray-100  transition http://127.0.0.1:3000/book/64cc83acd80bb0ea69eac8a8duration-300 hover:rotate-0">
                 <div className="flex justify-end gap-2">
                   <h2 className="-mt-1 font-bold">* BOOK</h2>
                   <div className="h-4 w-4 rounded-full bg-[#FE5401]"></div>

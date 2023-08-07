@@ -56,7 +56,7 @@ const AllBooks = () => {
       <MainLayout>
         <h2>all book. {data?.data.length} </h2>
         <div className="max-w-md mx-auto mb-5">
-          <div className="relative flex items-center w-full h-12 rounded-lg focus-within:shadow-lg bg-white overflow-hidden">
+          <div className=" flex items-center w-full h-12 rounded-lg focus-within:shadow-lg bg-white overflow-hidden">
             <div className="grid place-items-center h-full w-12 text-gray-300">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -86,7 +86,7 @@ const AllBooks = () => {
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-5">
           {data?.data.map((book: IBook) => (
             <Link to={`/book/${book?._id}`}>
-              <div className="overflow-hidden shadow-lg transition duration-500 ease-in-out transform hover:-translate-y-5 hover:shadow-2xl rounded-lg   cursor-pointer m-auto">
+              <div className="overflow-hidden shadow-lg transition duration-500 ease-in-out  hover:-translate-y-5 hover:shadow-2xl rounded-lg   cursor-pointer m-auto">
                 <a href="#" className="w-full block h-full">
                   <img
                     alt="blog photo"
