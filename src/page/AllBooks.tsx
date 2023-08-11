@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 import MainLayout from "../components/layout/MainLayout";
 import Loading from "../components/shared/loading";
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-import { ToastContainer, toast } from "react-toastify";
+import { ToastContainer } from "react-toastify";
 
 import "react-toastify/dist/ReactToastify.css";
 

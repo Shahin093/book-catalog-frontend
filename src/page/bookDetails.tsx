@@ -38,7 +38,7 @@ const BookDetails = () => {
   // Decoding the JWT token
   const user = decodeToken() as IDecodedToken | null;
 
-  const { data, isLoading, error } = useSingleBookQuery(id);
+  const { data, isLoading } = useSingleBookQuery(id);
 
   // review part
 

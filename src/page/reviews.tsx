@@ -6,7 +6,7 @@ interface ModalProps {
 const Reviews: React.FC<ModalProps> = ({ id }) => {
   // console.log("id", id);
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const { data, isLoading, error } = useGetReviewsQuery(id, {
+  const { data } = useGetReviewsQuery(id, {
     refetchOnMountOrArgChange: true,
     pollingInterval: 6000,
   });
