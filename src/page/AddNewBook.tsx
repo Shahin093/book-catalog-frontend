@@ -8,10 +8,13 @@ import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useNavigate } from "react-router-dom";
 const AddNewBook = () => {
+  const [select, setSelect] = useState("");
   // Decoding the JWT token
   const user = decodeToken() as IDecodedToken | null;
   console.log("user", user?.userId);
   const navigate = useNavigate();
+
+  // console.log("select", select);
 
   const [formData, setFormData] = useState({
     title: "",
@@ -20,13 +23,45 @@ const AddNewBook = () => {
     description: "",
     publication_date: "",
     review: "",
+    status: false,
+    bookStructure: select && `B-${select}`,
     user: user?.userId,
   });
 
+  const handleSelect = (event: React.ChangeEvent<HTMLSelectElement>) => {
+    event.preventDefault();
+    const selectedValue = event.target.value;
+    setSelect(selectedValue);
+    setFormData({
+      ...formData,
+      bookStructure: event.target.value ? `B-${event.target.value}` : "",
+    });
+  };
+  console.log(select);
+
+  // const [formDataWithReadingList, setFormDataWithReadingList] = useState({
+  //   title: "",
+  //   author: "",
+  //   genre: "",
+  //   description: "",
+  //   publication_date: "",
+  //   review: "",
+  //   bookStructure: select && `B-${select}`,
+  //   user: user?.userId,
+  // });
+
   const handleInputChange = (event: ChangeEvent<HTMLInputElement>) => {
+    event.preventDefault();
     const { name, value } = event.target;
     setFormData({ ...formData, [name]: value });
+    // setFormData({ ...formData, bookStructure: select && `B-${select}` });
   };
+  // const handleInputChangeWithReadingList = (
+  //   event: ChangeEvent<HTMLInputElement>
+  // ) => {
+  //   const { name, value } = event.target;
+  //   setFormDataWithReadingList({ ...formDataWithReadingList, [name]: value });
+  // };
 
   const [postBook, { data, isError, isLoading, isSuccess }] =
     usePostBookMutation();
@@ -56,7 +91,7 @@ const AddNewBook = () => {
       <div>
         <div className="h-screen md:flex">
           {/* Background */}
-          <div className="relative overflow-hidden md:flex w-1/2 bg-gradient-to-tr from-blue-800 to-purple-700 i justify-around items-center hidden">
+          <div className=" overflow-hidden md:flex w-1/2 bg-gradient-to-tr from-blue-800 to-purple-700 i justify-around items-center hidden">
             <div>
               <h1 className="text-white font-bold text-4xl font-sans">
                 GoFinance
@@ -201,6 +236,27 @@ const AddNewBook = () => {
                   value={formData.publication_date}
                   onChange={handleInputChange}
                 />
+              </div>
+              {/* book structures*/}
+              <div className="flex items-center border-2 py-2 px-3 rounded-2xl mb-4">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  className="h-5 w-5 text-gray-400"
+                  viewBox="0 0 20 20"
+                  fill="currentColor"
+                >
+                  <path
+                    fillRule="evenodd"
+                    d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z"
+                    clipRule="evenodd"
+                  />
+                </svg>
+
+                <select className="" onChange={handleSelect} value={select}>
+                  <option value="">Select Options</option>
+                  <option value="wishlist">wish list</option>
+                  <option value="readinglist">reading list</option>
+                </select>
               </div>
               {/* review input */}
               <div className="flex items-center border-2 py-2 px-3 rounded-2xl mb-4">

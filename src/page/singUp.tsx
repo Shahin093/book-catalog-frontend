@@ -30,10 +30,12 @@ const SingUp = () => {
     console.log(data);
     signUp(data);
     toast(data?.message);
-    navigate("/");
+
     // props.login(data);
   };
-
+  if (data) {
+    navigate("/login");
+  }
   if (data) {
     cookies.set("token", data?.data?.accessToken, { path: "/" });
   }

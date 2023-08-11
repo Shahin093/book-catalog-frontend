@@ -1,22 +1,24 @@
-import { useParams } from "react-router-dom";
+/* eslint-disable @typescript-eslint/no-unused-vars */
+import { useNavigate, useParams } from "react-router-dom";
 import { useSingleBookQuery } from "../redux/features/books/booksApi";
 import MainLayout from "../components/layout/MainLayout";
 import Loading from "../components/shared/loading";
 import { decodeToken } from "../lib/utils";
 import { IDecodedToken } from "../types/globalTypes";
-import { useState } from "react";
-// import UpdateBookModal from "../components/shared/updateBookModal";
+import { useState, ChangeEvent, FormEvent } from "react";
 import { ToastContainer } from "react-toastify";
 
 import "react-toastify/dist/ReactToastify.css";
 import UpdateBookModal from "../components/shared/updateBookModal";
 import DeleteBookModal from "../components/shared/deleteBookModal";
+import Reviews from "./reviews";
+import { useCreateReviewMutation } from "../redux/features/reviews/reviewApi";
 
 const BookDetails = () => {
   const { id } = useParams();
-
+  const navigate = useNavigate();
   const [isModalOpen, setModalOpen] = useState(false);
-
+  const [review, setReview] = useState("");
   const [isModalOpen2, setModalOpen2] = useState(false);
 
   const handleOpenModal = () => {
@@ -35,10 +37,30 @@ const BookDetails = () => {
 
   // Decoding the JWT token
   const user = decodeToken() as IDecodedToken | null;
-  console.log("user", user?.tokenEmail);
 
   const { data, isLoading, error } = useSingleBookQuery(id);
-  console.log(data, isLoading, error);
+
+  // review part
+
+  const [createReview, { data: reviewDataShow }] = useCreateReviewMutation();
+
+  const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+
+    const reviewData = {
+      review: review,
+      book: data && data?.data?._id,
+    };
+    createReview(reviewData);
+
+    setReview("");
+    if (reviewDataShow?.data) {
+      navigate(`/book/${reviewDataShow && reviewDataShow?.data?._id}`);
+    }
+  };
+  const handleTextareaChange = (event: ChangeEvent<HTMLTextAreaElement>) => {
+    setReview(event.target.value);
+  };
 
   return isLoading ? (
     <div>
@@ -53,7 +75,7 @@ const BookDetails = () => {
               <div className="max-w-lg mx-auto overflow-hidden rounded-lg shadow-lg lg:max-w-none lg:flex">
                 <div className="flex-1 px-6 py-8 bg-white lg:p-12">
                   <h3 className="text-2xl font-extrabold text-gray-900 sm:text-3xl">
-                    {data.data.title}
+                    {data?.data.title}
                   </h3>
                   <p className="italic text-sm text-gray-500 -mt-1 transition hover:opacity-75">
                     {data?.data.publication_date}
@@ -180,8 +202,30 @@ const BookDetails = () => {
               </div>
             </div>
           </div>
+
+          {/* review page  */}
+          {data?.data._id && <Reviews id={data.data._id} />}
+
+          {/* add review  */}
+          <div className="max-w-lg shadow-md">
+            <form action="" className="w-full p-4" onSubmit={handleSubmit}>
+              <label className="block mb-2">
+                <span className="text-gray-600">Add a review</span>
+                <textarea
+                  className="block w-full mt-1 rounded"
+                  rows={3}
+                  value={review}
+                  onChange={handleTextareaChange}
+                ></textarea>
+              </label>
+              <button className="px-3 py-2 text-sm text-blue-100 bg-blue-600 rounded">
+                Submit
+              </button>
+            </form>
+          </div>
         </div>
       </div>
+
       {/* update modal  */}
       <UpdateBookModal
         id={data?.data._id}

@@ -15,7 +15,7 @@ const Books = () => {
   };
 
   const { data, isLoading } = useGetBooksQuery({
-    undefined,
+    search: "",
     page: currentPage,
   });
   console.log("cu page : ", currentPage);

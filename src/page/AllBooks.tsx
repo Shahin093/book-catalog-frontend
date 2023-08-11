@@ -4,6 +4,7 @@ import { IBook } from "../types/globalTypes";
 import { Link } from "react-router-dom";
 import MainLayout from "../components/layout/MainLayout";
 import Loading from "../components/shared/loading";
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 import { ToastContainer, toast } from "react-toastify";
 
 import "react-toastify/dist/ReactToastify.css";
@@ -14,14 +15,21 @@ import "react-toastify/dist/ReactToastify.css";
 const AllBooks = () => {
   const [searchData, setSearchData] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
+  const [genreData, setGenreData] = useState<string>("");
   const totalPages = 3; // Replace this with the actual total number of pages
+
+  const selectHandler = (event: React.ChangeEvent<HTMLSelectElement>) => {
+    setGenreData(event.target.value);
+  };
+
+  console.log("genreData", genreData);
 
   const handlePageChange = (pageNumber: number) => {
     setCurrentPage(pageNumber);
 
     // Add logic to fetch and display the data for the selected page
   };
-  console.log("cu page : ", currentPage);
+  // console.log("cu page : ", currentPage);
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     e.preventDefault();
@@ -29,19 +37,21 @@ const AllBooks = () => {
 
     // const { data } = useGetBooksQuery(e.target.value);
   };
-  console.log(searchData);
+
+  // const genreData2 = "Fiction";
 
   const { data, isLoading } = useGetBooksQuery({
-    searchData,
+    search: searchData,
     page: currentPage,
+    genre: genreData ? `genre=${genreData}` : "",
   });
 
   // const dispatch = useAppDispatch();
   // const toastState = useAppSelector((state: RootState) => state.toasts);
 
-  if (data?.data) {
-    toast("All Books founded");
-  }
+  // if (data?.data) {
+  //   toast("All Books founded");
+  // }
 
   // const showToast = (message: string, type: ToastType) => {
 
@@ -54,10 +64,9 @@ const AllBooks = () => {
   ) : (
     <div>
       <MainLayout>
-        <h2>all book. {data?.data.length} </h2>
-        <div className="max-w-md mx-auto mb-5">
-          <div className=" flex items-center w-full h-12 rounded-lg focus-within:shadow-lg bg-white overflow-hidden">
-            <div className="grid place-items-center h-full w-12 text-gray-300">
+        <div className=" grid grid-cols-1 lg:grid-cols-2 p-3 justify-end items-end mt-[-200px] bg-slate-400 gap-3 fixed  ">
+          <div className=" flex items-center w-72 h-16 rounded-lg focus-within:shadow-lg  overflow-hidden">
+            <div className="grid place-items-center h-full w-12 bg-white">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 className="h-6 w-6"
@@ -75,15 +84,30 @@ const AllBooks = () => {
             </div>
 
             <input
-              className="peer h-full w-full outline-none text-sm text-gray-700 pr-2 flex justify-end border-red-400"
+              className="peer h-full outline-none text-sm w-72
+               text-gray-700 pr-2 flex justify-end border-red-400"
               type="text"
               onChange={handleChange}
               id="search"
               placeholder="Search something.."
             />
           </div>
+
+          <div className="w-72">
+            <select
+              className="w-72 h-16"
+              name=""
+              id=""
+              onChange={selectHandler}
+            >
+              <option value="">Select Genre</option>
+              {data?.data.map((gen: IBook) => (
+                <option value={gen?.genre}>{gen?.genre}</option>
+              ))}
+            </select>
+          </div>
         </div>
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-5">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-5 mt-[200px]">
           {data?.data.map((book: IBook) => (
             <Link to={`/book/${book?._id}`}>
               <div className="overflow-hidden shadow-lg transition duration-500 ease-in-out  hover:-translate-y-5 hover:shadow-2xl rounded-lg   cursor-pointer m-auto">
@@ -93,7 +117,7 @@ const AllBooks = () => {
                     src="https://m.media-amazon.com/images/I/41iAE8B2KIL._SY291_BO1,204,203,200_QL40_FMwebp_.jpg"
                     className="max-h-40 w-full object-cover"
                   />
-                  <div className="bg-white w-full p-4">
+                  <div className=" w-full p-4">
                     <p className="text-indigo-500 text-2xl font-medium">
                       {book.title}
                     </p>

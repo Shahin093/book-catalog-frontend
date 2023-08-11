@@ -24,7 +24,7 @@ function App() {
     <div>
       <MainLayout>
         <div
-          className="bg-[url('https://images.builderservices.io/s/cdn/v1.0/i/m?url=https%3A%2F%2Fimages.unsplash.com%2Fphoto-1532012197267-da84d127e765%3Fcrop%3Dentropy%26cs%3Dtinysrgb%26fit%3Dmax%26fm%3Djpg%26ixid%3DMnw1NTEzfDB8MXxzZWFyY2h8Mjl8fGxpYnJhcnklMjBvd2x8ZW58MHx8fHwxNjQ3Mjg2OTc0%26ixlib%3Drb-1.2.1%26q%3D90%26w%3D2000%26utm_source%3Dendurance-innovation%26utm_medium%3Dreferral')]  w-full h-[550px] object-cover opacity-95"
+          className="bg-[url('https://images.builderservices.io/s/cdn/v1.0/i/m?url=https%3A%2F%2Fimages.unsplash.com%2Fphoto-1532012197267-da84d127e765%3Fcrop%3Dentropy%26cs%3Dtinysrgb%26fit%3Dmax%26fm%3Djpg%26ixid%3DMnw1NTEzfDB8MXxzZWFyY2h8Mjl8fGxpYnJhcnklMjBvd2x8ZW58MHx8fHwxNjQ3Mjg2OTc0%26ixlib%3Drb-1.2.1%26q%3D90%26w%3D2000%26utm_source%3Dendurance-innovation%26utm_medium%3Dreferral')]  w-full h-[550px] object-cover"
           style={{
             backgroundSize: "100% 100%",
             // backgroundRepeat: "no-repeat",

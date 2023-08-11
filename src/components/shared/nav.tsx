@@ -1,6 +1,9 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import Cookies from "universal-cookie";
+import LogoutModal from "./logoutModal";
+import { decodeToken } from "../../lib/utils";
+import { IDecodedToken } from "../../types/globalTypes";
 // import UpdateBookModal from "./updateBookModal";
 
 const Nav = () => {
@@ -11,18 +14,27 @@ const Nav = () => {
   const handleMobileMenuToggle = () => {
     setMobileMenuOpen(!isMobileMenuOpen);
   };
-
+  // Decoding the JWT token
+  const user = decodeToken() as IDecodedToken | null;
   const logout = () => {
     cookies.remove("token", { path: "/" });
     navigate("/login");
   };
 
   // const [isModalOpen, setModalOpen] = useState(false);
-
+  const [isModalOpen, setModalOpen] = useState(false);
   const handleOpenModal = () => {
-    // navigate("/login");
-    // setModalOpen(true);
+    setModalOpen(true);
   };
+
+  const handleCloseModal = () => {
+    setModalOpen(false);
+  };
+
+  // const handleOpenModal = () => {
+  //   // navigate("/login");
+  //   // setModalOpen(true);
+  // };
 
   // const handleCloseModal = () => {
   //   setModalOpen(false);
@@ -106,6 +118,20 @@ const Nav = () => {
                   data-te-nav-link-ref
                 >
                   Add New
+                </a>
+              </Link>
+            )}
+            {userInfo && (
+              <Link
+                to={"/wishlist"}
+                className="mb-4 lg:mb-0 lg:pr-2 p-4 border-b-2 border-green-500 border-opacity-0 hover:border-opacity-100 hover:text-green-500 duration-200 cursor-pointer active"
+              >
+                <a
+                  className="text-neutral-500 transition duration-200 hover:text-neutral-700 hover:ease-in-out focus:text-neutral-700 disabled:text-black/30 motion-reduce:transition-none dark:text-neutral-200 dark:hover:text-neutral-300 dark:focus:text-neutral-300 lg:px-2 [&.active]:text-black/90 dark:[&.active]:text-neutral-400"
+                  href="#"
+                  data-te-nav-link-ref
+                >
+                  WishList
                 </a>
               </Link>
             )}
@@ -299,6 +325,13 @@ const Nav = () => {
           </a>
         </div>
       </header>
+
+      {/* logout modal    */}
+      <LogoutModal
+        id={user?.userId}
+        isOpen={isModalOpen}
+        onClose={handleCloseModal}
+      ></LogoutModal>
     </div>
   );
 };

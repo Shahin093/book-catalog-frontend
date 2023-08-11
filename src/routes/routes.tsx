@@ -8,6 +8,7 @@ import BookDetails from "../page/bookDetails";
 import SingUp from "../page/singUp";
 import Login from "../page/login";
 import Logout from "../page/logout";
+import WishList from "../page/wishList";
 
 const routes = createBrowserRouter([
   {
@@ -57,6 +58,10 @@ const routes = createBrowserRouter([
   {
     path: "/logout",
     element: <Logout />,
+  },
+  {
+    path: "/wishlist",
+    element: <WishList />,
   },
   {
     path: "*",
