@@ -110,7 +110,7 @@ const AllBooks = () => {
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-5 mt-[200px]">
           {data?.data.map((book: IBook) => (
             <Link to={`/book/${book?._id}`}>
-              <div className="overflow-hidden shadow-lg transition duration-500 ease-in-out  hover:-translate-y-5 hover:shadow-2xl rounded-lg   cursor-pointer m-auto">
+              <div className="overflow-hidden shadow-lg transition duration-500 ease-in-out   rounded-lg   cursor-pointer m-auto">
                 <a href="#" className="w-full block h-full">
                   <img
                     alt="blog photo"

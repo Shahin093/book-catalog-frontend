@@ -6,7 +6,7 @@ import { IDecodedToken } from "../types/globalTypes";
 import { toast, ToastContainer } from "react-toastify";
 
 import "react-toastify/dist/ReactToastify.css";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 const AddNewBook = () => {
   const [select, setSelect] = useState("");
   // Decoding the JWT token
@@ -94,22 +94,20 @@ const AddNewBook = () => {
           <div className=" overflow-hidden md:flex w-1/2 bg-gradient-to-tr from-blue-800 to-purple-700 i justify-around items-center hidden">
             <div>
               <h1 className="text-white font-bold text-4xl font-sans">
-                GoFinance
+                Book Catalog
               </h1>
               <p className="text-white mt-1">
                 The most popular peer to peer lending at SEA
               </p>
-              <button
-                type="submit"
+              <Link
                 className="block w-28 bg-white text-indigo-800 mt-4 py-2 rounded-2xl font-bold mb-2"
+                to={"/all-books"}
               >
-                Read More
-              </button>
+                <button type="submit" className="">
+                  Read More
+                </button>
+              </Link>
             </div>
-            <div className="absolute -bottom-32 -left-40 w-80 h-80 border-4 rounded-full border-opacity-30 border-t-8"></div>
-            <div className="absolute -bottom-40 -left-20 w-80 h-80 border-4 rounded-full border-opacity-30 border-t-8"></div>
-            <div className="absolute -top-40 -right-0 w-80 h-80 border-4 rounded-full border-opacity-30 border-t-8"></div>
-            <div className="absolute -top-20 -right-20 w-80 h-80 border-4 rounded-full border-opacity-30 border-t-8"></div>
           </div>
 
           {/* add book from */}
@@ -214,7 +212,7 @@ const AddNewBook = () => {
               </div>
 
               {/* publication_date*/}
-              <div className="flex items-center border-2 py-2 px-3 rounded-2xl mb-4">
+              <div className="flex items-center border-2  py-2 px-3 rounded-2xl mb-4">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   className="h-5 w-5 text-gray-400"
@@ -253,7 +251,7 @@ const AddNewBook = () => {
                 </svg>
 
                 <select className="" onChange={handleSelect} value={select}>
-                  <option value="">Select Options</option>
+                  <option value="">Do You Want to Book Feature</option>
                   <option value="wishlist">wish list</option>
                   <option value="readinglist">reading list</option>
                 </select>

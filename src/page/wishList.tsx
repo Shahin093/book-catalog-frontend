@@ -53,11 +53,11 @@ const WishList = () => {
   ) : (
     <MainLayout>
       <div>
-        <div className="flex flex-col p-6">
+        <div className="flex flex-col p-6 bg-gray-50">
           <div className="overflow-x-auto sm:-mx-6 lg:-mx-8">
             <div className="inline-block min-w-full py-2 sm:px-6 lg:px-8">
               <h2 className="text-3xl font-bold flex justify-center items-center pt-5">
-                WishList
+                My WishList
               </h2>
               <div className="overflow-hidden mb-7">
                 <table className="min-w-full text-center text-sm font-light">
@@ -93,7 +93,7 @@ const WishList = () => {
               </div>
 
               <h2 className="text-3xl font-bold flex justify-center items-center pt-5">
-                Reading List
+                My Reading List
               </h2>
               <div className="overflow-hidden">
                 <table className="min-w-full text-center text-sm font-light">
